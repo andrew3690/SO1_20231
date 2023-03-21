@@ -21,7 +21,11 @@ CPU::Context::~Context()
 {
     //adicionar implementação
     // pilha de processo vai a zero
-    _stack = 0; 
+    if (_stack){ 
+        delete(_stack); // tamanho da pilha vai a zero
+    } else {
+        printf("A pilha não está vazia");
+    }
 }
 
 int CPU::switch_context(Context *from, Context *to)

@@ -8,4 +8,6 @@ check:
 
 main:
 	${CC} ${CFLAGS} ${INCLUDES} -o $@ ${OBJS}
-	rm *.o
+
+clean:
+	rm -f ./main

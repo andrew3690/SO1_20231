@@ -12,6 +12,8 @@ __BEGIN_API
 class CPU; 
 class Main;
 class Debug;
+class System;
+class Thread;
 
 //declaração da classe Traits
 template<typename T>
@@ -26,12 +28,27 @@ template<> struct Traits<Debug>: public Traits<void>
  static const bool trace = true;
 };
 
+template<> struct Traits<System>: public Traits<void>
+{
+ static const bool error = false;
+ static const bool warning = false;
+ static const bool info = false;
+ static const bool trace = true;
+};
+
+template<> struct Traits<Thread>: public Traits<void>
+{
+ static const bool error = false;
+ static const bool warning = false;
+ static const bool info = false;
+ static const bool trace = true;
+};
+
 // Exemplo de Debug utilizado para a classe Traits
 template<typename T>
 struct Traits {
  static const bool debugged = false;
 };
-
 
 template<> struct Traits<CPU>
 {
