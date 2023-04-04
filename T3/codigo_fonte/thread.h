@@ -125,11 +125,17 @@ private:
 };
 
 template<typename ... Tn>
-inline Thread::Thread(void (* entry)(Tn ...), Tn ... an) : /* inicialização de _link */
+inline Thread::Thread(void (* entry)(Tn ...), Tn ... an) :_link(this, (std::chrono::duration_cast<std::chrono::microseconds>
+ (std::chrono::high_resolution_clock::now().time_since_epoch()).count())) /* inicialização de _link */
 {
     db<Thread>(TRC) << "[Debug] Thread " + std::to_string(_threads_identifier) + " criada\n";
     _context = new CPU::Context(entry, an...);
     _id = _threads_identifier++;
+
+    if(_id > 0){
+        _ready.insert_tail(&_link);
+    };
+    _state = READY;
 }
 __END_API
 
